@@ -1,0 +1,11 @@
+ENV VARIABLE AS CONFIG HELM:
+_____________________________________
+          envFrom:
+          {{- range .Values.configmaps }}
+          - configMapRef:
+              name: {{ .name | default (include "cash-chaincode.fullname" $) }}
+          {{- end }}
+          {{- range .Values.secrets }}
+          - secretRef:
+              name: {{ .name | default (include "cash-chaincode.fullname" $) }}
+          {{- end }}
